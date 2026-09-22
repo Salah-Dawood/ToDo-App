@@ -33,4 +33,13 @@ public class CategoryController {
         return categoryService.getCategory(category);
     }
 
+    // POST's
+
+    @PostMapping("/categories")
+    public Category createCategory(@RequestBody Category categoryObject){
+        System.out.println("Calling createCategory ==> ");
+
+        return categoryService.createCategory(categoryObject);
+    }
+
 }
