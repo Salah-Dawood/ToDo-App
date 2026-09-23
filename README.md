@@ -19,7 +19,13 @@ http://localhost:9093/api/categories
 ## A link to the GitHub repo.
 https://github.com/Salah-Dawood/ToDo-App
 
+### PUT
+#### update category from id - from body
+http://localhost:9093/api/categories/1
 
+### DELETE
+#### delete category from id
+http://localhost:9093/api/categories/1
 
 
 ## All of your design decisions.

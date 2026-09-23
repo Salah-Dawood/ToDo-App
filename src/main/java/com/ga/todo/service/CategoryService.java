@@ -1,6 +1,7 @@
 package com.ga.todo.service;
 
 import com.ga.todo.exception.InformationExistException;
+import com.ga.todo.exception.InformationNotFoundException;
 import com.ga.todo.model.Category;
 import com.ga.todo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -39,9 +41,39 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public Category getCategory(String category){
+    public Optional<Category> getCategory(long id){
         System.out.println("Service calling getCategory() ==> ");
-        return categoryRepository.findByName(category);
+        return categoryRepository.findById(id);
+    }
+
+    // Update
+
+    //update
+    public Category updateCategory(long id,Category categoryObject){
+        System.out.println("Service calling updateCategory()");
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isPresent()) {
+            Category updateCategory = categoryRepository.findById(id).get();
+            updateCategory.setName(categoryObject.getName());
+            updateCategory.setDescription(categoryObject.getDescription());
+            return categoryRepository.save(updateCategory);
+        } else {
+            throw new InformationNotFoundException("category with id " + id + " not found");
+        }
+    }
+
+    //delete
+    public Optional<Category> deleteCategory(Long id){
+        System.out.println("Service calling deleteCategory()");
+
+        Optional<Category> category = categoryRepository.findById(id);
+
+        if (category.isPresent()) {
+            categoryRepository.deleteById(id);
+            return category;
+        } else {
+            throw new InformationNotFoundException("category with id " + id + " not found");
+        }
     }
 
 }
