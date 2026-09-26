@@ -43,7 +43,12 @@ public class CategoryService {
 
     public Optional<Category> getCategory(long id){
         System.out.println("Service calling getCategory() ==> ");
-        return categoryRepository.findById(id);
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isPresent()){
+            return category;
+        } else {
+            throw new InformationNotFoundException("Recipe with id " + id + " not found");
+        }
     }
 
     // Update

@@ -3,6 +3,8 @@ package com.ga.todo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "categories")
@@ -17,4 +19,7 @@ public class Category {
 
     @Column
     private String description;
+
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "category",orphanRemoval = true)
+    private List<Item> recipeList;
 }
